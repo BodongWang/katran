@@ -86,6 +86,8 @@ add_library(katranlb STATIC
     BalancerStructs.h
     Vip.h
     Vip.cpp
+    HwAcceleration.h
+    HwAcceleration.cpp
 )
 
 target_link_libraries(katranlb
