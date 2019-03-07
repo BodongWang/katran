@@ -37,7 +37,7 @@ struct bpf_map_def SEC("maps") vip_map = {
 };
 BPF_ANNOTATE_KV_PAIR(vip_map, struct vip_definition, struct vip_meta);
 
-
+#ifdef HW_ACCELERATION_ENABLED
 struct bpf_map_def SEC("maps") vip_map_by_id = {
   .type = BPF_MAP_TYPE_ARRAY,
   .key_size = sizeof(__u32),
@@ -45,6 +45,7 @@ struct bpf_map_def SEC("maps") vip_map_by_id = {
   .max_entries = MAX_VIPS,
   .map_flags = NO_FLAGS,
 };
+#endif // HW_ACCELERATION_ENABLED
 
 // map which contains cpu core to lru mapping
 struct bpf_map_def SEC("maps") lru_maps_mapping = {
@@ -56,6 +57,7 @@ struct bpf_map_def SEC("maps") lru_maps_mapping = {
 };
 BPF_ANNOTATE_KV_PAIR(lru_maps_mapping, __u32, __u32);
 
+#ifdef HW_ACCELERATION_ENABLED
 // map which contains cpu core to hw acceleration metadata
 struct bpf_map_def SEC("maps") hw_accel_mapping = {
   .type = BPF_MAP_TYPE_ARRAY_OF_MAPS,
@@ -72,6 +74,7 @@ struct bpf_map_def SEC("maps") hw_accel_events = {
     .max_entries = MAX_SUPPORTED_CPUS,
     .map_flags = NO_FLAGS,
 };
+#endif // HW_ACCELERATION_ENABLED
 
 // fallback lru. we should never hit this one outside of unittests
 struct bpf_map_def SEC("maps") fallback_lru_cache = {
