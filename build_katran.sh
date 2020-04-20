@@ -243,9 +243,10 @@ get_grpc() {
     rm -rf deps/grpc
     pushd .
     cd deps
-    git clone  --depth 1 https://github.com/grpc/grpc
+    git clone https://github.com/grpc/grpc
     cd grpc
-    git submodule update --init
+    git checkout v1.23.0 -b xdp
+    git submodule update --init --progress
     mkdir build
     cd build
     cmake ..
