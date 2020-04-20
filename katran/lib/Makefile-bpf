@@ -26,9 +26,11 @@ CFLAGS += -DHW_ACCELERATION_ENABLED
 
 # Allows pointing LLC/CLANG to a LLVM backend with bpf support, redefine on cmdline:
 #  make samples/bpf/ LLC=~/git/llvm/build/bin/llc CLANG=~/git/llvm/build/bin/clang
-LLC ?= llc
-CLANG ?= clang
-OBJDUMP ?= llvm-objdump
+
+LLVM_BASE = ../clang/clang+llvm-*-linux-gnu-ubuntu-18.04/bin/
+LLC ?= $(LLVM_BASE)/llc
+CLANG ?= $(LLVM_BASE)clang
+OBJDUMP ?= $(LLVM_BASE)/llvm-objdump
 
 # Trick to allow make to be run from this directory
 all: $(always)
