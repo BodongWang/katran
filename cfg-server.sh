@@ -1,5 +1,7 @@
 #!/bin/bash
+C_IP=1.1.1.2
+R_IP=1.1.1.160
 
-./katran-client  -A -t 10.200.200.1:22
-./katran-client  -a -t 10.200.200.1:22 -r 10.209.80.61
+./katran-client  -A -t $C_IP:22
+./katran-client  -a -t $C_IP:22 -r $R_IP
 
