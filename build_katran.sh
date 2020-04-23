@@ -24,7 +24,7 @@ if [ ! -z "$FORCE_INSTALL" ]; then
     rm -rf ./deps
 fi
 
-if [ ! -z "$BUILD_EXAMPLE_THRIFT" ]; then
+if [ -z "$BUILD_EXAMPLE_THRIFT" ]; then
     BUILD_EXAMPLE_THRIFT=1
     export CMAKE_BUILD_EXAMPLE_THRIFT="$BUILD_EXAMPLE_THRIFT"
 fi
@@ -79,9 +79,12 @@ get_folly() {
 
     pushd .
 	cd deps
-	git clone https://github.com/facebook/folly --depth 1
-	cd folly/build
+	git clone https://github.com/facebook/folly
+	cd folly
+	git checkout v2019.04.08.00 -b xdp
+	cd build
   cmake -DCXX_STD=gnu++14 ..
+  sed -i '/FOLLY_HAVE_LIBBZ2/d' ./folly/folly-config.h
   make -j $NCPUS
   sudo make install
   popd
@@ -155,8 +158,9 @@ get_fizz() {
     rm -rf deps/fizz
     pushd .
     cd deps
-    git clone --depth 1 https://github.com/facebookincubator/fizz
+    git clone https://github.com/facebookincubator/fizz
     cd fizz
+    git checkout v2019.04.01.00 -b xdp
     mkdir build_ && cd build_
     cmake ../fizz/
     make -j $NCPUS
@@ -172,8 +176,9 @@ get_wangle() {
     rm -rf deps/wangle
     pushd .
     cd deps
-    git clone --depth 1 https://github.com/facebook/wangle
+    git clone https://github.com/facebook/wangle
     cd wangle/wangle
+    git checkout v2019.03.18.00 -b xdp
     cmake .
     make -j $NCPUS
     sudo make install
@@ -206,8 +211,9 @@ get_fbthrift() {
         flex
     pushd .
     cd deps
-    git clone --depth 1 https://github.com/facebook/fbthrift || true
+    git clone https://github.com/facebook/fbthrift
     cd fbthrift/build
+    git checkout v2019.04.08.00 -b xdp
     cmake -DCXX_STD=gnu++14 ..
     make -j $NCPUS
     sudo make install
