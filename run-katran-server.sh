@@ -4,8 +4,8 @@ set -eo pipefail
 
 cd `dirname $0`
 
-KATRAN_SERVER=./build/example_grpc/katran_server_grpc
-#KATRAN_SERVER=./build/example/simple_katran_server
+#KATRAN_SERVER=./build/example_grpc/katran_server_grpc
+KATRAN_SERVER=./build/example/simple_katran_server
 
 if [ ! -f $KATRAN_SERVER ]; then
 	echo "katran server executable file not found"
