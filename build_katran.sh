@@ -178,7 +178,7 @@ get_wangle() {
     cd deps
     git clone https://github.com/facebook/wangle
     cd wangle/wangle
-    git checkout v2019.03.18.00 -b xdp
+    git checkout v2019.04.01.00 -b xdp
     cmake .
     make -j $NCPUS
     sudo make install
@@ -228,9 +228,10 @@ get_rsocket() {
     rm -rf deps/rsocket-cpp
     pushd .
     cd deps
-    git clone --depth 1 https://github.com/rsocket/rsocket-cpp || true
+    git clone https://github.com/rsocket/rsocket-cpp
     mkdir -p rsocket-cpp/build
     cd rsocket-cpp/build
+    git checkout 0bfb8ebff936df8 -b xdp
     cmake -DCXX_STD=gnu++14 ..
     make -j $NCPUS
     sudo make install
